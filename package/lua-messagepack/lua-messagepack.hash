@@ -1,3 +1,4 @@
-# Locally calculated
-sha256 a27d985b8bdb79ebe78dfe255c795e839a04eb2fed1c610a81c7876e3f72fd97  lua-messagepack-0.5.1-1.src.rock
-sha256 b7f69ada6aed7e0cdfd690291607d8f41246e67f191107ecdc0a1e592c449abe  lua-messagepack-lua53-0.5.1-1.src.rock
+# computed by luarocks/buildroot
+sha256  86e5aedc94342f1447b3cac26dfacc69f05b0827221cd5e44d3b623087b16f37  lua-messagepack-0.5.4-1.src.rock
+sha256  3ed7ac22e50b06e63f91a16ad6457381af7317f1bccd778f104a4513c1cc118b  lua-messagepack-lua53-0.5.4-1.src.rock
+sha256  1dbe8e7da2d71088d4759da33a42eda89f5be90d1a9c0b823360a270d6628ed8  lua-MessagePack-0.5.4/COPYRIGHT

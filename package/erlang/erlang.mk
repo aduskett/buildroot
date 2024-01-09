@@ -4,22 +4,31 @@
 #
 ################################################################################
 
-# See note below when updating Erlang
-ERLANG_VERSION = 21.0
-ERLANG_SITE = http://www.erlang.org/download
+ERLANG_VERSION = 26.0.2
+ERLANG_RELEASE = $(firstword $(subst ., ,$(ERLANG_VERSION)))
+ERLANG_SITE = \
+	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
 ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
 ERLANG_DEPENDENCIES = host-erlang
 
 ERLANG_LICENSE = Apache-2.0
 ERLANG_LICENSE_FILES = LICENSE.txt
+ERLANG_CPE_ID_VENDOR = erlang
+ERLANG_CPE_ID_PRODUCT = erlang\/otp
 ERLANG_INSTALL_STAGING = YES
 
 # Patched erts/aclocal.m4
-ERLANG_AUTORECONF = YES
+define ERLANG_RUN_AUTOCONF
+	cd $(@D) && PATH=$(BR_PATH) ./otp_build update_configure --no-commit
+endef
+ERLANG_DEPENDENCIES += host-autoconf
+ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
+HOST_ERLANG_DEPENDENCIES += host-autoconf
+HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
 
-# Whenever updating Erlang, this value should be updated as well, to the
-# value of EI_VSN in the file lib/erl_interface/vsn.mk
-ERLANG_EI_VSN = 3.10.3
+# Return the EIV (Erlang Interface Version, EI_VSN)
+# $(1): base directory, i.e. either $(HOST_DIR) or $(STAGING_DIR)/usr
+erlang_ei_vsn = `sed -r -e '/^erl_interface-(.+)/!d; s//\1/' $(1)/lib/erlang/releases/$(ERLANG_RELEASE)/installed_application_versions`
 
 # The configure checks for these functions fail incorrectly
 ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes
@@ -38,7 +47,7 @@ HOST_ERLANG_CONF_ENV += ERL_TOP=$(@D)
 
 # erlang uses openssl for all things crypto. Since the host tools (such as
 # rebar) uses crypto, we need to build host-erlang with support for openssl.
-HOST_ERLANG_DEPENDENCIES = host-openssl
+HOST_ERLANG_DEPENDENCIES += host-openssl
 HOST_ERLANG_CONF_OPTS = --without-javac --with-ssl=$(HOST_DIR)
 
 HOST_ERLANG_CONF_OPTS += --without-termcap
@@ -64,10 +73,9 @@ else
 ERLANG_CONF_OPTS += --without-odbc
 endif
 
-ifeq ($(BR2_PACKAGE_ZLIB),y)
-ERLANG_CONF_OPTS += --enable-shared-zlib
+# Always use Buildroot's zlib
+ERLANG_CONF_OPTS += --disable-builtin-zlib
 ERLANG_DEPENDENCIES += zlib
-endif
 
 # Remove source, example, gs and wx files from staging and target.
 ERLANG_REMOVE_PACKAGES = gs wx

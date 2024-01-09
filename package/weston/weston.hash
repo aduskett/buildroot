@@ -1,5 +1,4 @@
-# From https://lists.freedesktop.org/archives/wayland-devel/2018-April/037768.html
-md5 33709aa4d5916f89643fca0fc0064b39  weston-4.0.0.tar.xz
-sha1 df1da4a880920c515162e95b18f3709a46690be7  weston-4.0.0.tar.xz
-sha256 a0fc0ae7ef83dfbed12abfe9b8096a24a7dd00705e86fa0db1e619ded18b4b58  weston-4.0.0.tar.xz
-sha512 0af41016ff4eae85779f95b5c5e44b9683f4ef681a8e52256efeebfa38073082b83e039d0db3c94ac22f22f8d8314c9d6cd16611144b260b353fc5bfdd1ded19  weston-4.0.0.tar.xz
+# From https://lists.freedesktop.org/archives/wayland-devel/2023-May/042725.html
+sha256  b18591eab278bc191720f6c09158040b795e7118af1d5ddca6acd9a8e2039535  weston-12.0.1.tar.xz
+sha512  3dcfa1a2a6b9a605d3ecd597bf7ac0f87b0fd1971845b6e5c44b5e34296943ac146dae6e1cfea9be14ad7a9a8b6d30dc765f9289ef80920d7c516ebba1ba4688  weston-12.0.1.tar.xz
+sha256  fdb65868f65d0fbdb05c2d3b779e10ce9969fa0c4b9262ba4f260e87086ab860  COPYING

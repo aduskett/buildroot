@@ -4,20 +4,16 @@
 #
 ################################################################################
 
-PYTHON_SETUPTOOLS_VERSION = v40.1.0
-PYTHON_SETUPTOOLS_SITE = $(call github,pypa,setuptools,$(PYTHON_SETUPTOOLS_VERSION))
+PYTHON_SETUPTOOLS_VERSION = 68.2.2
+PYTHON_SETUPTOOLS_SOURCE = setuptools-$(PYTHON_SETUPTOOLS_VERSION).tar.gz
+PYTHON_SETUPTOOLS_SITE = https://files.pythonhosted.org/packages/ef/cc/93f7213b2ab5ed383f98ce8020e632ef256b406b8569606c3f160ed8e1c9
 PYTHON_SETUPTOOLS_LICENSE = MIT
 PYTHON_SETUPTOOLS_LICENSE_FILES = LICENSE
-PYTHON_SETUPTOOLS_SETUP_TYPE = setuptools
-
-# recent setuptools versions require bootstrap.py to be invoked
-# before the standard setup process.
-define PYTHON_SETUPTOOLS_RUN_BOOTSTRAP
-	cd  $(@D) && $(HOST_DIR)/bin/python ./bootstrap.py
-endef
-
-PYTHON_SETUPTOOLS_PRE_CONFIGURE_HOOKS = PYTHON_SETUPTOOLS_RUN_BOOTSTRAP
-HOST_PYTHON_SETUPTOOLS_PRE_CONFIGURE_HOOKS = PYTHON_SETUPTOOLS_RUN_BOOTSTRAP
+PYTHON_SETUPTOOLS_CPE_ID_VENDOR = python
+PYTHON_SETUPTOOLS_CPE_ID_PRODUCT = setuptools
+PYTHON_SETUPTOOLS_SETUP_TYPE = pep517
+PYTHON_SETUPTOOLS_DEPENDENCIES = host-python-wheel
+HOST_PYTHON_SETUPTOOLS_DEPENDENCIES = host-python-wheel
 
 $(eval $(python-package))
 $(eval $(host-python-package))

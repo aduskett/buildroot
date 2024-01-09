@@ -13,6 +13,7 @@ if BR2_PACKAGE_BUSYBOX
 
 config BR2_PACKAGE_BUSYBOX_CONFIG
 	string "BusyBox configuration file to use?"
+	default "package/busybox/busybox-minimal.config" if !BR2_USE_MMU
 	default "package/busybox/busybox.config"
 	help
 	  Some people may wish to use their own modified BusyBox
@@ -38,11 +39,9 @@ config BR2_PACKAGE_BUSYBOX_SHOW_OTHERS
 
 config BR2_PACKAGE_BUSYBOX_SELINUX
 	bool "Enable SELinux support"
-	depends on BR2_TOOLCHAIN_HAS_THREADS
-	depends on !BR2_STATIC_LIBS
-	depends on BR2_TOOLCHAIN_USES_GLIBC
-	depends on !BR2_arc
-	select BR2_PACKAGE_LIBSELINUX
+	default y
+	depends on BR2_PACKAGE_LIBSELINUX
+	select BR2_PACKAGE_BUSYBOX_INDIVIDUAL_BINARIES
 	help
 	  Enable SELinux support in BusyBox. Please note that
 	  depending on your BusyBox configuration and the SELinux
