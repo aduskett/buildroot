@@ -1,0 +1,13 @@
+config BR2_PACKAGE_OPTIONAL_LITE
+	bool "optional-lite"
+	depends on BR2_INSTALL_LIBSTDCPP
+	help
+	  optional lite is a single-file header-only library to
+	  represent optional (nullable) objects and pass them by value.
+	  The library aims to provide a C++17-like optional for use with
+	  C++98 and later. If available, std::optional is used.
+
+	  https://github.com/martinmoene/optional-lite
+
+comment "optional-lite needs a toolchain w/ C++"
+	depends on !BR2_INSTALL_LIBSTDCPP

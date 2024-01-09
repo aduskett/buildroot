@@ -1,0 +1,19 @@
+config BR2_PACKAGE_LMDBXX
+	bool "lmdbxx"
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_7 # C++17
+	depends on BR2_TOOLCHAIN_HAS_THREADS # lmdb
+	depends on BR2_USE_WCHAR # lmdb
+	select BR2_PACKAGE_LMDB
+	help
+	  lmdb++: a C++17 wrapper for LMDB
+	  This is a comprehensive C++ wrapper for the LMDB embedded
+	  database library, offering both an error-checked procedural
+	  interface and an object-oriented resource interface with RAII
+	  semantics.
+
+	  https://github.com/hoytech/lmdbxx/
+
+comment "lmdbxx needs a toolchain w/ wchar, threads, gcc >= 7"
+	depends on BR2_USE_MMU
+	depends on !BR2_TOOLCHAIN_GCC_AT_LEAST_7 || !BR2_USE_WCHAR || \
+		!BR2_TOOLCHAIN_HAS_THREADS
